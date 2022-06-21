@@ -15,6 +15,8 @@ Battery. The TTGO device can connect to a rechargeable battery. Search for “10
 * A box. There is a 3D printable design available. If you want to put the camera on a tripod you will need a 3/8" to 1/4" camera adapter which you can search for by name. 
 * Screws. You'll need some screws side M2 4mm in length to fix the TTGO device to the case (search for "laptop screws").
 * Micro USB cable. You program and power the camera via the micro-usb cable on the TTGO cable. 
+## Hardware
+The button is connected between the GND and IO22 connections on the TTGO board expansion connector. You can do this by connecting to the pins inside the connector, by soldering onto the connector at the back or by using the TTGO expansion cable which is also available.
 ## Software
 The [software](/software) folder holds a complete PlatformIO project for building the camera code. [PlatformIO](https://platformio.org/) runs inside [Visual Studio Code](https://code.visualstudio.com/).
 ## Case
