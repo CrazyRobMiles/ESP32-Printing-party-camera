@@ -1,0 +1,1 @@
+The case has no overhangs, although it is sensible to turn on internal support for the tripod hole. The tripod adapter should be fitted from the inside of the case. If it seems a little loose after you have screwed it into place you can add a spot of hot glue.
