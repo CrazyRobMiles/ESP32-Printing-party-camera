@@ -44,6 +44,12 @@ The [case](/case) folder holds printable designs for the top and bottom of a cas
 The code for the camera uses the [Thermal Printer](https://github.com/bitbank2/Thermal_Printer) and [JPEGDEC](https://github.com/bitbank2/JPEGDEC) libraries from Larry Bank which is are excellent free resources. Thanks very much. 
 
 Thanks also go to Robot Zero One for their [fridge guard](https://robotzero.one/ttgo-security-camera-pir/) project which provided very useful tips for starting the camera using the PIR sensor. 
+## Troubleshooting
+### PlatformIO
+If PlatformIO fails to show you any build or run options for the project, make sure that you have installed the extension and that it is enabled for your workspace. Open the file main.cpp in the src folder to trigger PlatformIO.
 
+If devices are not detected properly you might need to disable other extensions that might try to use the serial port. 
+### Bluetooth printer
+If your printer is not picked up by Bluetooth you may need to add it to the list of printers that are detected by the driver. See the section "Adding a different printer" above for details of how to do this. 
 Have fun
 Rob Miles
