@@ -4,7 +4,7 @@ Designs and software for an ESP32 powered device that will take pictures and pri
 ## Instuctions
 The camera wakes up when the PIR sensor is triggered. It initialises the on board camera and searches for a compatible Bluetooth printer. If it finds one it displays a message and waits for the button to be pressed. When the button is pressed the camera shows a five second countdown and then takes and prints a picture. 
 
-If the camera PIR sensor is not triggered for 30 seconds the camera will shut down and until the PIR sensor is triggered again. 
+If the camera PIR sensor is not triggered for 30 seconds the camera will shut down until the PIR sensor is triggered again. 
 
 If the camera can't start running (perhaps the printer is not switched on) it will retry five times and then shut down if the PIR sensor is not triggered. 
 ## Parts list
@@ -17,39 +17,37 @@ Battery. The TTGO device can connect to a rechargeable battery. Search for “10
 * Micro USB cable. You program and power the camera via the micro-usb cable on the TTGO cable. 
 ## Hardware
 The button is connected between the GND and IO22 connections on the TTGO board expansion connector. You can do this by connecting to the pins inside the connector, by soldering onto the connector at the back or by using the TTGO expansion cable which is also available.
-## Software
 # Party Camera Software
 To use the software just open this folder into PlatformIO and build it. All the required versions of the drivers are part of the project. 
-## Adding a different printer
-You only need to do this if your printer is not recognised by the thermal printer libaray. The [GitHub site ](https://github.com/bitbank2/Thermal_Printer) for the printer code has a list of printers that are already supported. 
+# Case
+![case design in FreeCAD](images/case.png)
+The [case](/case) folder holds printable designs for the top and bottom of a case along with the Python macro that runs inside [FreeCAD](https://www.freecadweb.org/).
 
-To make the printer code work with my printer I had to modify a file in the library code and add the Bluetooth name of my printer. 
+# Troubleshooting
+## PlatformIO not running
+If PlatformIO fails to show you any build or run options for the project, make sure that you have installed the extension and that it is enabled for your workspace. Open the file main.cpp in the src folder to trigger the PlatformIO toolbar.
 
- The file to modify is Thermal_Printer.cpp in the folder *\software\.pio\libdeps\esp-wrover-kit\Thermal Printer Library* 
+If the camera device is not detected when you plug it into usb you might need to disable other extensions that use the serial port. 
+## Printer not recognised
+If the camera gets stuck on the 'CAMERA OK' screen during startup it might be that your Bluetooth printer hasn't been recognised. The [GitHub site ](https://github.com/bitbank2/Thermal_Printer) for the printer library has a list of printers that are supported. If your printer is in the list you can try adding its name to the printer library.  The file to modify is Thermal_Printer.cpp in the folder *\software\.pio\libdeps\esp-wrover-kit\Thermal Printer Library* 
 
-The printer names are defined on line 59 of the file:
+The printer names are defined on line 59 of the file. To make the printer code work with my printer I had to change the name of the first printer to the  Bluetooth name of my printer, which was MPT-II. 
+
 
 ```
 const char *szBLENames[] = {(char *)"MPT-II",
 ```
 
-I used the program BLE Scanner from [Blue Pixel Tech](https://www.bluepixeltech.com) on my mobile phone to find the Bluetooth name of the printer and then changed the first string in the file match this. 
-## The camera and CPU Speed
+I used the program BLE Scanner from [Blue Pixel Tech](https://www.bluepixeltech.com) on my mobile phone to find the Bluetooth name of the printer and then changed the  string in the file match this. 
+## Program Speed
 The PlatformIO ini file for this project contains a setting that reduces the clock speed of the ESP32 to 16 MHz. This has been found to make the camera setup more reliable. If you reuse this code in another project you must make sure that you add this setting.
-## The camera and the Bluetooth stack
-The ESP32 code uses the Bluetooth libraries which are rather large. This project configures the build to produce the "Huge App" version of the code. This is selected in the PlatformIO.ini file If you reuse this code in another project you must make sure you add this setting. ## Case
-![case design in FreeCAD](images/case.png)
-The [case](/case) folder holds printable designs for the top and bottom of a case along with the Python macro that runs inside [FreeCAD](https://www.freecadweb.org/).
+## Program Size
+The ESP32 code uses the Bluetooth libraries which are rather large. This project configures the build to produce the "Huge App" version of the code. This is selected in the PlatformIO.ini file. If you reuse this code in another project you must make sure you add this setting. 
 ## Acknowledgements
 The code for the camera uses the [Thermal Printer](https://github.com/bitbank2/Thermal_Printer) and [JPEGDEC](https://github.com/bitbank2/JPEGDEC) libraries from Larry Bank which is are excellent free resources. Thanks very much. 
 
 Thanks also go to Robot Zero One for their [fridge guard](https://robotzero.one/ttgo-security-camera-pir/) project which provided very useful tips for starting the camera using the PIR sensor. 
-## Troubleshooting
-### PlatformIO
-If PlatformIO fails to show you any build or run options for the project, make sure that you have installed the extension and that it is enabled for your workspace. Open the file main.cpp in the src folder to trigger PlatformIO.
 
-If devices are not detected properly you might need to disable other extensions that might try to use the serial port. 
-### Bluetooth printer
-If your printer is not picked up by Bluetooth you may need to add it to the list of printers that are detected by the driver. See the section "Adding a different printer" above for details of how to do this. 
 Have fun
+
 Rob Miles
